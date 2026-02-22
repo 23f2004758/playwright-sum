@@ -1,10 +1,10 @@
 from playwright.sync_api import sync_playwright
 import re
 
-seeds = list(range(3, 13))
+seeds = range(3, 13)
 base = "https://sanand0.github.io/tdsdata/playwright-table/?seed={}"
 
-total_sum = 0
+total = 0
 
 with sync_playwright() as p:
     browser = p.chromium.launch()
@@ -15,10 +15,9 @@ with sync_playwright() as p:
         tables = page.locator("table").all()
 
         for t in tables:
-            text = t.inner_text()
-            nums = re.findall(r"-?\d+\.?\d*", text)
-            total_sum += sum(float(n) for n in nums)
+            nums = re.findall(r"-?\d+\.?\d*", t.inner_text())
+            total += sum(float(n) for n in nums)
 
     browser.close()
 
-print(f"TOTAL_SUM={int(total_sum)}")
+print(f"TOTAL_SUM={int(total)}")
