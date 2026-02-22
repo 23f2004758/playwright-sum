@@ -19,4 +19,4 @@ with sync_playwright() as p:
 
     browser.close()
 
-print(f"TOTAL_SUM={total}")
+print(f"SUM={total}")
