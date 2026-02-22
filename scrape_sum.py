@@ -11,10 +11,9 @@ with sync_playwright() as p:
     page = browser.new_page()
 
     for s in seeds:
-        url = base.format(s)
-        page.goto(url)
-
+        page.goto(base.format(s))
         tables = page.locator("table").all()
+
         for t in tables:
             text = t.inner_text()
             nums = re.findall(r"-?\d+\.?\d*", text)
@@ -22,4 +21,4 @@ with sync_playwright() as p:
 
     browser.close()
 
-print("TOTAL_SUM=", int(total_sum))
+print(f"TOTAL_SUM={int(total_sum)}")
